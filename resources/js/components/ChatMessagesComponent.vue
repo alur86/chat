@@ -1,34 +1,22 @@
-
 <template>
-    <div class="message-area">
-        <message-component 
-            v-for="message in messages" 
-            :key="message.id" 
-            :message="message">
-        </message-component>      
-    </div>
+    <ul class="chat">
+        <li class="left clearfix" v-for="message in messages">
+            <div class="chat-body clearfix">
+                <div class="header">
+                    <strong class="primary-font">
+                        {{ message.user.name }}
+                    </strong>
+                </div>
+                <p>
+                    {{ message.message }}
+                </p>
+            </div>
+        </li>
+    </ul>
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                messages: []
-            }
-        },
-        mounted() {
-            axios.get('/message').then((response) => {
-                this.messages = response.data;
-            });
-        }
-    }
+  export default {
+    props: ['messages']
+  };
 </script>
-<style>
-    .message-area {
-        height: 400px;
-        max-height: 400px;
-        overflow-y: scroll;
-        padding: 15px;
-        border-bottom: 1px solid #eee;
-    }
-</style>

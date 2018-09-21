@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Message;
 use Illuminate\Support\Facades\Auth;
+use App\Events\MessageSent;
 
 class ChatsController extends Controller
 {
@@ -18,7 +19,10 @@ public function __construct()
 
 public function index()
 {
-  return view('chat');
+
+  $user = Auth::user();
+
+  return view('chat')->with('user', $user);
 }
 
 
@@ -36,8 +40,11 @@ public function sendMessage(Request $request)
     'message' => $request->input('message')
   ]);
 
+  broadcast(new MessageSent($user, $message))->toOthers();
+
   return ['status' => 'Message Sent!'];
 }
+
 
 
 

@@ -9,9 +9,7 @@
 </template>
 
 <script>
-
     import Event from '../event.js';
-
     export default {
         data() {
             return {
@@ -20,7 +18,6 @@
         },
         mounted() {
             axios.get('/message').then((response) => {
-                console.log(response.data);
                 this.messages = response.data;
             });
             Event.$on('added_message', (message) => {

@@ -3,7 +3,8 @@
         <div class="card">
             <div class="card-header">Chats</div>
             <div class="card-body">
-                Chats
+                <chat-messages-component></chat-messages-component>
+                <chat-form-component></chat-form-component>
             </div>
         </div>
     </div>
@@ -11,8 +12,6 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
+        
     }
 </script>
