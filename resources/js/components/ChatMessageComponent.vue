@@ -1,6 +1,5 @@
-
 <template>
-    <div class="message-area">
+    <div class="message-area" ref="message">
         <message-component 
             v-for="message in messages" 
             :key="message.id" 
@@ -10,6 +9,9 @@
 </template>
 
 <script>
+
+    import Event from '../event.js';
+
     export default {
         data() {
             return {
@@ -18,7 +20,14 @@
         },
         mounted() {
             axios.get('/message').then((response) => {
+                console.log(response.data);
                 this.messages = response.data;
+            });
+            Event.$on('added_message', (message) => {
+                this.messages.unshift(message);
+                if(message.selfMessage) {
+                    this.$refs.message.scrollTop = 0;
+                }
             });
         }
     }
