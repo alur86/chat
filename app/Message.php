@@ -6,5 +6,35 @@ use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
-    //
+   
+
+
+public $timestamps = true;	
+    
+protected $table = 'messages';
+
+
+protected $fillable = array('body');
+
+protected $appends = ['selfMessage'];
+
+
+
+
+public function getSelfMessageAttribute()
+{
+    return $this->user_id === auth()->user()->id;
+ }
+
+
+
+public function user()
+{
+   return $this->belongsTo(User::class);
+}
+
+
+
+
+
 }
